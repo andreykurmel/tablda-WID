@@ -1,0 +1,36 @@
+       function InitObj_3(){
+          var sd1 = ext_scope[2]/2;
+          curve = new THREE.EllipseCurve(
+	          0,  0,            // ax, aY
+	         sd1, sd1,           // xRadius, yRadius
+	         0,  Math.radians(90),  // aStartAngle, aEndAngle
+	         false,            // aClockwise
+	         Math.radians(180)                 // aRotation
+          );
+          var path = new THREE.Path( curve.getPoints( 50 ) );          
+          lineGeometry = path.createPointsGeometry( 50 );
+          for(i=0; i<lineGeometry.vertices.length; i++){
+              lineGeometry.vertices[i].x -= (ext_scope[3]/2-ext_scope[2]/2);
+          }
+          lineGeometry.vertices.unshift(new THREE.Vector3(-0.01, 0.0, 0.0));
+          var lineMaterial = new THREE.LineBasicMaterial( { color : mdl_color } );
+          
+          // Create the final object to add to the scene
+          line = new THREE.Line( lineGeometry, lineMaterial );
+          line.position.x = -5;
+	      scene.add(line);
+       }
+
+
+       function MakeObj_3(bInit){
+          var points = curve.getPoints( 50 );
+          var geometry = new THREE.LatheGeometry( lineGeometry.vertices, 48);
+          var material = new THREE.MeshPhongMaterial( { color: mdl_color, side: THREE.DoubleSide } );
+          if(bInit == true){
+             obj = new THREE.Mesh( geometry, material );
+             obj.position.x = 2;
+             scene.add(obj);
+          }else{
+             obj.geometry = geometry;
+          }
+       }

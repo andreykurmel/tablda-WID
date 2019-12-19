@@ -1,0 +1,51 @@
+{
+	"Notation":{
+		
+		"design_code": "base connection analysis code.",
+		"g_phi_plate": "resistance factor for plate design."
+
+		},
+
+	"Default":{
+            "frt_azm": 0,
+            "ctr_elev": 0,
+            "ice_thk": "",
+            "q_z": 1,
+            "name": "",
+            "epa_a": "",
+            "dwf": "",
+            "g_h": 1.0,
+            "k_a": 1.0,
+            "quantity": 1,
+            "faces": []		
+		},
+
+	"Unit":{
+				"ice_thk": "in.",
+				"wind_dir": "deg.",				
+				"frt_azm": "deg.",
+				"angle_btw": "deg.",				
+				"ctr_elev": "ft",				
+				"q_z": "psf",
+
+				"dwf": "kips",
+
+				"face_azm": "deg.",
+				"p_a": "ft^2",
+				"epa_a": "ft^2",
+				"d": "in.",
+				"w": "lbf."
+			},
+
+	"tableValues":{
+
+					},
+					
+	"Options":{
+						"pc_mftr": ["Rohn", "Valmont", "other"],
+
+						"abr_layout_shape": {"circular":"circular", "rectangular":"rectangular","circgrp":"circular group"},
+
+						"stfnr_layout_ptrn": {"1p1b":"every rod b", "1p1s":"every rod s", "1p1e":"every rod e", "1p2":"every 2 rods", "2p1":"2 per rod"}
+					}
+}

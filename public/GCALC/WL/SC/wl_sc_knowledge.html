@@ -1,0 +1,100 @@
+<style>
+ul.knowledge_compact {
+    list-style-type: circle;
+    list-style-position: outside;
+    padding: 0px;
+    margin-left: 0px;    
+}
+
+.knowledge_code {
+
+}
+
+.knowledge_note{
+    font-style: italic;
+}
+</style>
+
+<div id="design_basis">
+
+    <h4>Loading</h4>
+    Axial loading: enter positive value for compression force and negative for tension force.
+
+</div>
+
+<div id="vp">
+  <h4>Velocity Pressure</h4>
+  <p>Select a velocity pressure (VP) calculation from the dropdown list which is composed of all saved VP calculations in the same folder as current saved WL_DA calculation. </p>  
+
+  <p>If you</p>
+  <ul class="knowledge_compact">
+    <li>are not a logged in user, or</li>
+    <li>are not working on a saved WL_DA calculation, or</li>
+    <li>do not have saved VP calculation(s) in the same folder as present WL_DA calculation,</li>
+  </ul>
+  <p>the DDL would be empty.</p>
+</div>
+
+
+<div id="loading_ice_thk">
+    <h4>TIA-222-G:2.6.8 Design Ice Thickness</h4>
+    <p><i>Note: disabled for visiting users.</i></p>
+    <p><b>t<sub>i</sub></b>: design ice thickness</p>
+    <p><b>t<sub>iz</sub></b>: the factored thickness of radial glaze ice at height z.</p>
+    <p>Enter a design ice thickness here and with selected VP calculation, the app will auto calculated the factored ice thickness for each appurtenances at specified elevations.</p>
+    <p>Alternatively, users like visitors can enter factored ice thickness for each appurtenance in the table.</p>
+</div>
+
+
+
+
+<div id="pc">    
+    under construction.
+</div>
+
+<div id="bp">    
+    under construction.
+</div>
+
+
+
+<div id="stfnr">
+
+</div>
+
+<div id="loading_notes">
+    Enter the notes for current loading, e.g., face/leg and position info such as FA1.
+</div>
+
+
+
+
+<div id="references">
+    <h5>References</h5>
+    <i><ul class="knowledge_compact">      
+        <li><a href="https://www.3starinc.com/manuals/design_considerations_using_TIA_222_G_standard.pdf" target="_blank">Design Considerations Using The ANSI/TIA-222-Rev G Standard, ROHN Products, LLC.</a></li>
+    </ul></i>
+</div>
+
+<div id="simplified_input">
+    <p>A simplified input will hide certain input cells and has less input cells.</p>
+
+    <img src="ALL/Application/bc2d/images/download.png" ng-click="info.zoomImg('ALL/Application/bc2d/images/download.png')" alt="Table 2-2 Wind Direction Probability Factors" width="100%">
+
+</div>
+
+<div class="shared">
+    <div class="shared-container">
+        <!-- h5>References</h5>
+        <i><ul class="knowledge_compact">
+            <li><a href="https://www.3starinc.com/manuals/design_considerations_using_TIA_222_G_standard.pdf" target="_blank">Design Considerations Using The ANSI/TIA-222-Rev G Standard, ROHN Products, LLC.</a></li>
+            <li>AGL Report: Revision G Updates Tower Requirements, Above Ground Level, April 2010.</li>
+            <li><a href="https://www.worldtower.com/images/222-g%20catalog/222%20g%20reference%20catelog.pdf" target="_blank">TIA-222-G Reference Catalog, World Tower Company, Inc.</a></li>
+            <li><a href="https://www.towernx.com/downloads/TIA-222-G_Explained.pdf" target="_blank">ANSI/TIA-222-G Explained, John R. Erichsen, Tower Numerics Inc.</a></li>
+        </ul></i -->
+    </div>
+</div>
+
+<div class="shared">
+    <h5>Media Content</h5>
+</div>

@@ -1,0 +1,243 @@
+<style>
+ul.knowledge_compact {
+    list-style-type: circle;
+    list-style-position: outside;
+    padding: 0px;
+    margin-left: 0px;    
+}
+
+.knowledge_code {
+
+}
+
+.knowledge_note{
+    font-style: italic;
+}
+</style>
+
+<div id="classification_structure">
+    <h4><b>Classification of Structures</b></h4>
+    <p>Default is Class II.</b></p>
+
+    <p><b>TIA-222-G Table 2-3: Importance Factors</b></p>
+
+    <img src="ALL/code/TIA/222/G/images/tia-222-g-a2-table2-1.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/tia-222-g-a2-table2-1.png')" width="100%">    
+
+    <img src="ALL/code/TIA/222/G/images/tia-222-g-a2-table2-3.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/tia-222-g-a2-table2-3.png')" width="100%">  
+
+    <p class="knowledge_note">Classification of structures allows for the adjustment of wind, ice and earthquake loading to match the <b>reliability requirements</b> for a specific application. Three reliability classes 
+        <b onclick="document.location+='#I';return false;" >I</b>, 
+        <b onclick="document.location+='#II';return false;" >II</b>, 
+        <b onclick="document.location+='#III';return false;" >III</b> have been established based on 
+        <ul class="knowledge_compact">
+          <li>the type of service provided and</li>
+          <li>the structure's potential hazard to human life and property.</li>
+      </ul>
+      Wind, ice and earthquake loading requirements <b>progressively increase</b> from Class I to Class III structures.
+  </p>
+
+  <p id="I"><b>Class I</b>:</p> 
+
+  <p class="knowledge_note">Example services would be: <b>residential / personal</b> wireless and conventional 2-way radio communications; television, radio, and scanner reception; wireless cable; amateur and CB radio communications. Structures of this classification are exempt from ice and earthquake loading. Wind loads are reduced <b>13%</b> compared to Class II structures.</p>
+
+  <p id="II"><b>Class II</b>:</p> 
+
+  <p class="knowledge_note">Example services would be <b>commercial / public</b> wireless communications; television and radio broadcasting; cellular, PCS, CATV, and microwave communications.</p>
+
+  <p id="III"><b>Class III</b>:</p> 
+
+  <p class="knowledge_note">Examples of essential communications would be: civil or national <b>defense</b>; <b>emergency</b>, <b>rescue</b>, or <b>disaster</b> operations</b>; <b>military</b> and <b>navigation</b> facilities. Loadings are increased for structures of this classification compared to Class II structures (<b>15% for wind, 25% for ice and 50% for earthquake</b>).</p>
+
+    <img src="ALL/code/TIA/222/G/images/loading_adjustment_classification_str.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/loading_adjustment_classification_str.png')" width="100%">   
+
+</div>
+
+<div id="basic_wind_speed">
+    <h4><b>Wind Speed Basis</b></h4>
+
+    <p>Historically, wind speeds have been reported with a variety of averaging times (such as fastest mile, 3-second gust, 1-minute and mean hourly)</p>
+
+    <p>"3-second gust" is the highest sustained gust over a 3-second period having a probability of being exceeded per year of 1 in 50 (ASCE 7-05). 3-sec gust wind speeds introduced in ASCE 7-95 to replace fastest-mile wind speeds. Basic wind speeds didn’t changed at all from ASCE 7-98 through ASCE 7-05. 3-sec gust wind speed allows design to accomodate instantaneous loads.</p>
+
+    <p>The basis for wind design was</p>
+    <ul> 
+        <li>service-level, fastest mile windspeeds in ASCE 7-93,</li>
+        <li>service-level, 3-second gust windspeeds in ASCE 7-02 and 7-05 (TIA-222-G) and</li>
+        <li>strength-level, 3-second gust windspeeds in ASCE 7-10.</li>
+
+        <p>Previous versions of ASCE 7 used a 50-year return wind speed map and relied on additional design factors to increase wind loads according to the reliability requirements of a structure. This resulted in structures being able to survive wind speeds of much higher return periods. The new wind maps in ASCE 7 -10 now include these design factors and now represent a much higher return period wind speed. A wind map is provided for each classification of structure. No additional factors have to be considered based on the classification of a structure when these wind speeds are used to calculate wind loads. Windspeeds are also provided for serviceability purposes for 10-, 25-, 50-, and 100-year return periods when using ASCE 7-10.</p>
+
+        <li>for design referencing purpose, service-level wind speed (V_asd, allowable stress design wind speed) is sometimes called nominal wind speed and strength-level wind speed ultimate wind speed or survival wind speed (V_ult, ultimate design wind speed). The relationship between them are V_asd = V_ult*sqrt(0.6).</li>
+    </ul>
+
+    <p>The 2006 International Building Code (IBC 2006), Section 1609.3.1 provides the following conversion equation between 3-second gust wind speed (V_3s) and fastest mile wind speed (V_fm):</p> 
+    <p>V_fm = (V_3s - 10.5) / 1.05.</p>
+
+    <p>A table for wind speed conversion:</p>
+    <img src="ALL/code/TIA/222/G/images/wind_speed_conversion.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/wind_speed_conversion.png')" width="100%"> 
+
+    <p>Following sites can be used for obtaining wind speed.</p>
+    <ul> 
+        <li><a href="https://windspeed.atcouncil.org/" target="_blank">Wind speed by location, Applied Technology Council (ATC).</a></li>
+        <li><a href="https://www.windspeedbyzip.com/" target="_blank">Wind Speed By Zip.</a></li>
+    </ul>
+
+</div>
+
+<div id="crest_height">
+    <img src="ALL/code/TIA/222/G/images/crest_height.jpg" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/crest_height.jpg')" width="100%">     
+</div>
+
+<div id="exposure_category">
+    <h4><b>Exposure Category</b></h4>
+    <p>Default is Category C.</b></p>
+
+    <p class="knowledge_code">ANSI/TIA-222-G Table 2-4: Exposure Category Coefficients</p>
+    <img src="ALL/code/TIA/222/G/images/tia-222-g-table2-4.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/tia-222-g-table2-4.png')" alt="Table 2-4 Exposure Category Coefficients" width="100%">
+    
+    <img src="ALL/code/TIA/222/G/images/tia_222_g_a2_2.6.5_exposure_categories.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/tia_222_g_a2_2.6.5_exposure_categories.png')" width="100%">
+    <p><b>General</b></p>
+
+    <p class="knowledge_note">Exposure categories are used to adjust wind loading based on the type of terrain surrounding a site. Reduced wind loads are associated with rougher terrains that tend to slow the wind down. Three exposure categories have been defined based on terrain roughness. Wind loading is increased as the exposure designation changes from Exposure B (roughest terrain) to Exposure D (smoothest terrain).</p>     
+
+    <p><b>1. Exposure B:</b></p> 
+    <p class="knowledge_code">Urban and suburban areas, wooded areas, or other terrain with numerous closely spaced obstructions having the size of single-family dwellings or larger.</p>  
+
+    <img src="ALL/code/TIA/222/G/images/exposure_cat.B.jpg" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/exposure_cat.B.jpg')" width="100%">
+
+    <p class="knowledge_code"> Use of this exposure (B) shall be limited to those areas for which terrain representative of Exposure B surrounds the structure in all directions for a distance of <u>at least 2,600 ft [0.5 mile or 800 m]</u> or <u>twenty times the height</u> of the structure, whichever is greater.</p> 
+
+    <img src="ALL/code/TIA/222/G/images/exposure_at.B_cndtn.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/exposure_at.B_cndtn.png')" width="100%">
+
+    <p class="knowledge_note">The wind load <u>at ground level</u> is reduced by 18% compared to Exposure C. This reduction diminishes with height, making the overall wind reduction less significant for taller structures.</p>  
+
+    <p><b>2. Exposure C:</b></p> 
+    <p class="knowledge_code">Open terrain with scattered obstructions having heights generally <u>less than 30 ft [9.1 m]</u>. This category includes flat, open country, grasslands and <u>shorelines in hurricane prone regions</u>.</p>
+
+    <img src="ALL/code/TIA/222/G/images/exposure_cat.C.jpg" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/exposure_cat.C.jpg')" alt="Exposure Category C" width="100%">
+
+    <p class="knowledge_code">Sites located in Exposure B terrain that are located further than <u>two miles</u> but less than <u>twenty times the height</u> of the structure from an Exposure D terrain.</p>
+
+    <img src="ALL/code/TIA/222/G/images/exposure_cat.C_btnBD.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/exposure_cat.C_btnBD.png')" alt="Exposure Category C (between B and D)" width="100%">
+
+    <p class="knowledge_note">Flat, open country and grasslands. <u>Shorelines in hurricane prone</u> areas are currently included in this exposure due to the roughness of waves generated during hurricanes; however, research is continuing regarding wind loading for hurricane areas.</p>
+
+    <p><b>3. Exposure D:</b></p>      
+
+    <p class="knowledge_note">Flat, unobstructed areas exposed to wind flowing over open water or smooth terrain for at least <u>1 mile [1.6 km]</u>.</p>
+
+    <img src="ALL/code/TIA/222/G/images/exposure_at.D_cndtn.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/exposure_at.D_cndtn.png')" alt="exposure_at.D_cndtn" width="100%">
+
+    <p class="knowledge_note">Examples would be shorelines of large bodies of water and areas adjacent to or within mud or salt flats. The wind load <u>at ground level</u> is increased <u>21%</u> compared to Exposure C. The higher wind load applies to structures located within <u>20 times their height</u> from an Exposure D terrain. </p>
+    <img src="ALL/code/TIA/222/G/images/exposure_cat.D.jpg" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/exposure_cat.D.jpg')" alt="Exposure Category D" width="100%">
+
+    <p class="knowledge_note">An exception is permitted for sites located in an Exposure B terrain that are at least <u>2 miles [3.2 km]</u> from the Exposure D terrain. Under these conditions, the site may be classified as Exposure C. </p>
+    <img src="ALL/code/TIA/222/G/images/exposure_cat.D_exception.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/exposure_cat.D_exception.png')" alt="Exposure Category D Exception" width="100%">
+
+    <p class="knowledge_note">Wind load comparision between exposure categories</p>
+    <img src="ALL/code/TIA/222/G/images/wind_load_cmprsn_exposure_category.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/wind_load_cmprsn_exposure_category.png')" alt="Smiley face" width="100%">
+
+</div>
+
+<div id="topographic_category">
+    <h4><b>Topographic Category</b></h4>
+    <p>Default is Category 1.</b></p>
+
+    <p class="knowledge_code"><b>2.6.6.1 Wind Speed-Up Over Hills, Ridges and Escarpments</b></p> 
+    <p class="knowledge_note">Wind speed-up effect qualification (consider or not) based on topography.</p>
+
+    <img src="ALL/code/TIA/222/G/images/tia-222-g-s2.6.6.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/tia-222-g-s2.6.6.png')" width="100%">
+
+    <p class="knowledge_code"><b>2.6.6.2 Topographic Categories</b></p> 
+    <p class="knowledge_note">Wind speed-up effect quantification (how and how much) based on topography.</p>
+
+    <img src="ALL/code/TIA/222/G/images/tia-222-g-s2.6.6.2_topographic_categories.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/tia-222-g-s2.6.6.2_topographic_categories.png')" width="100%">
+
+    <p class="knowledge_code">The topographic category for a structure shall be assessed as being one of the following:
+        <a ng-click="info.scrollTo('cat1')">1</a>,
+        <a ng-click="info.scrollTo('cat2')">2</a>,
+        <a ng-click="info.scrollTo('cat3')">3</a>,
+        <a ng-click="info.scrollTo('cat4')">4</a>,
+        <a ng-click="info.scrollTo('cat5')">5</a>
+    </p>
+
+    <p id="cat1"><b>1. Category 1:</b></p>
+    <p class="knowledge_code">No abrupt changes in general topography, e.g. <u>flat or rolling terrain</u>, no wind speed-up consideration shall be required.</p> 
+
+    <img src="ALL/code/TIA/222/G/images/topo_cat1_flat_rolling_terrain.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/topo_cat1_flat_rolling_terrain.png')" width="100%">
+
+    <p class="knowledge_note">Flat or rolling terrain with no abrupt changes in general topography. No increase in wind loading is required for this category. </p>
+
+    <p id="cat2"><b>2. Category 2 (escarpment):</b></p>
+
+    <img src="ALL/code/TIA/222/G/images/topo_cat2_escarpment.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/topo_cat2_escarpment.png')" width="100%">
+
+    <p class="knowledge_note">Sites separated from a lower elevation by a <b>gently sloping terrain (escarpment)</b>. Wind loads at the crest are <b>2.0 times</b> the wind loads for a flat site and diminish with height depending on the height of the escarpment. </p>
+
+    <p class="knowledge_note">Height for an escarpment is the difference in elevation between the upper and lower levels. Increased wind loads do not apply for structures located in the <u>lower half</u> of the sloping terrain or located <u>beyond 8 times</u> the escarpment’s height from the crest. </p>
+
+    <p id="cat3"><b>3. Category 3 (hill):</b></p>  
+
+    <img src="ALL/code/TIA/222/G/images/topo_cat3_isolated_hill.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/topo_cat3_isolated_hill.png')" width="100%">
+
+    <p class="knowledge_note">Sites located at the top or within the <u>upper half</u> of a hill. Wind loads at the top of a hill are <u>2.3 times</u> the wind loads for a flat site and diminish with height depending on the height of the hill. </p>
+
+    <p class="knowledge_note">Height for sites on isolated hills is the difference in elevation between the top and bottom of the hill. </p>
+
+    <p id="cat4"><b>4. Category 4 (ridge):</b></p>
+    <p class="knowledge_code">Structures located in the <u>upper half of a ridge - a rise from average terrain in two directions.</u>. Wind speed-up shall be considered to occur in all directions. Structures located vertically on the <u>lower half of a ridge</u> shall be permitted to be considered as Topographic Category 1.</p>
+
+    <img src="ALL/code/TIA/222/G/images/topo_cat4_ridge.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/topo_cat4_ridge.png')" width="100%">
+
+    <p class="knowledge_note">Sites located on a ridge. Wind loads at the top of a ridge are <u>3 times</u> the wind loads for a flat site and diminish with height depending on the height of the ridge.</p>
+    <p class="knowledge_note">Height for an (isolated) ridge/hill is the difference between the top and bottom elevations of the ridge. </p>
+
+    <p class="knowledge_note">For sites on prominent hills surrounded by other hills (ridge), height is the difference in the hill elevation at the site and the <u>average elevation</u> of the surrounding hills <u>(within a 2-mile [3.2 km] radius)</u>. In other words, height is the projection of the hill exposed to wind. When there are hills surrounding the site, increased wind loads do not apply (-> Cat. 1) unless the height of the hill at the site is at least <u>3 times</u> the average height of the surrounding hills.</p>
+
+    <img src="ALL/code/TIA/222/G/images/topo_cat4_average_height.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/topo_cat4_average_height.png')" width="80%">
+
+    <p id="cat5"><b>5. Category 5:</b></p>
+
+    <p class="knowledge_note">This category is reserved for sites where site-specific investigations are performed to determine wind loading. A site-specific investigation may result in either higher or lower wind loads compared to using one of the standard topographic categories</p>
+
+    <img src="ALL/code/TIA/222/G/images/tia-222-g-s2.6.6_topo_effects.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/tia-222-g-s2.6.6_topo_effects.png')" width="100%">
+
+    <p class="knowledge_code">ANSI/TIA-222-G Table 2-5 Topographic Category Coefficients</p>
+    <img src="ALL/code/TIA/222/G/images/tia-222-g-table2-5.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/tia-222-g-table2-5.png')" width="100%">
+
+</div>
+
+<div id="structural_type">
+  <p><b>TIA-222-G Table 2-2: Wind Direction Probability Factors</b></p>
+
+    <img src="ALL/code/TIA/222/G/images/tia-222-g-a2-table2-2.png" ng-click="info.zoomImg('ALL/code/TIA/222/G/images/tia-222-g-a2-table2-2.png')" alt="Table 2-2 Wind Direction Probability Factors" width="100%">
+
+</div>
+
+<div id="references">
+    <h5>References</h5>
+    <i><ul class="knowledge_compact">
+        <li>ANSI/TIA-222-G: Structural Standard for Antenna Supporting Structures and Antenna w/ Addendum 1, 2, & 3.</li>        
+        <li><a href="https://www.3starinc.com/manuals/design_considerations_using_TIA_222_G_standard.pdf" target="_blank">Design Considerations Using The ANSI/TIA-222-Rev G Standard, ROHN Products, LLC.</a></li>
+        <li>AGL Report: Revision G Updates Tower Requirements, Above Ground Level, April 2010.</li>
+        <li><a href="https://www.worldtower.com/images/222-g%20catalog/222%20g%20reference%20catelog.pdf" target="_blank">TIA-222-G Reference Catalog, World Tower Company, Inc.</a></li>
+        <li><a href="https://www.towernx.com/downloads/TIA-222-G_Explained.pdf" target="_blank">ANSI/TIA-222-G Explained, John R. Erichsen, Tower Numerics Inc.</a></li>
+        <li><a href="https://www.rohnnet.com/revg" target="_blank">Understanding TIA-222 Revision G, Rohn Products, LLC.</a></li>
+    </ul></i>
+</div>
+
+<div class="shared">
+    <div class="shared-container">
+        <!-- h5>References</h5>
+        <i><ul class="knowledge_compact">
+            <li><a href="https://www.3starinc.com/manuals/design_considerations_using_TIA_222_G_standard.pdf" target="_blank">Design Considerations Using The ANSI/TIA-222-Rev G Standard, ROHN Products, LLC.</a></li>
+            <li>AGL Report: Revision G Updates Tower Requirements, Above Ground Level, April 2010.</li>
+            <li><a href="https://www.worldtower.com/images/222-g%20catalog/222%20g%20reference%20catelog.pdf" target="_blank">TIA-222-G Reference Catalog, World Tower Company, Inc.</a></li>
+            <li><a href="https://www.towernx.com/downloads/TIA-222-G_Explained.pdf" target="_blank">ANSI/TIA-222-G Explained, John R. Erichsen, Tower Numerics Inc.</a></li>
+        </ul></i -->
+    </div>
+</div>
+
+<div class="shared">
+    <h5>Media Content</h5>
+</div>

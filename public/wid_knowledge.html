@@ -1,0 +1,201 @@
+<style>
+ul.knowledge_compact {
+  list-style-type: circle;
+  list-style-position: outside;
+  padding: 0px;
+  margin-left: 0px;    
+}
+
+.knowledge_code {
+
+}
+
+.knowledge_note{
+  font-style: italic;
+}
+</style>
+
+<div id="materials">
+  To select and enter materials to be used for present geometry data record.
+  <ul>
+    <li><b>E</b>: Elastic Modulus.</li>
+    <li><b>Rho</b>: Weight Density.</li>
+    <li><b>G</b>: Young's Modules.</li>
+    <li><b>Nu</b>: Poisson's Ratio.</li>
+    <li><b>fy</b>: Yielding Strength.</li> 
+    <li><b>fu</b>: Ultimate Strength.</li>         
+  </ul>   
+</div>
+
+<div id="product">
+  To define product
+</div>
+
+<div id="sections">
+  <ul>
+    <li><b>A</b>: cross section area.</li>
+    <li><b>Iyy</b>: area moment of inertia w.r.t. cross section's y axis.</li>
+    <li><b>Izz</b>: area moment of inertia w.r.t. cross section's z axis.</li>
+    <li><b>J</b>: polar area moment of inertia.</li>
+    <li><b></b>: <a href="https://en.wikipedia.org/wiki/List_of_second_moments_of_area" target="_blank">List of second moments of area</a> </li>
+  </ul> 
+
+  <img src="images/coordinatesystem.gif" alt="section properties" style="height:100px;">&nbsp;
+  <img src="images/coordinatesystem.gif" alt="section properties" style="height:100px;">&nbsp;
+  <img src="images/coordinatesystem.gif" alt="section properties" style="height:100px;">&nbsp;
+
+</div>
+
+<div id="nodes">
+
+  <ul>
+    <li><b>Base node and rotation</b>
+
+      <ul>
+        <li><b>node</b>: select a defined node as base for defining present node. Or leave it blank if no base</li>
+        <li><b>roty</b>: rotation is applied to Nx/y/z before they are added to detla x/y/z. So the formula is Rot(N.x/y/z, roty_n) + Rot(dx/y/z, roty_f).</li>        
+      </ul>            
+
+    </li>
+
+    <li><b>Delta x/y/z</b>: formula examples:
+      <ul>
+        <li>Parameter + 0.5 + 5*Math.cos(30*Math.PI/180)</li>
+        <li>+(Parameter - 0.5)/3</li>
+        <li></li>
+      </ul>
+    </li>
+    <li><b>roty</b>: rotation is applied to dx/dy/dz before they are added to base node's x/y/z. So the formula is N.x/y/z(base) + Rot(dx/y/z, roty).</li>
+  </ul> 
+
+
+
+</div>
+
+<div id="members">
+  To define members for present geometry (data record).
+
+  <ul>
+    <li><b>NodeI</b>: starting node of the member. </li>
+    <li><b>NodeJ</b>: ending node of the member.</li>
+
+    There are two ways to explicitly set the orientation of the a member's y-axis, NodeK or rotx.
+    <li><b>NodeK</b>: if a K node is defined, the three joints (I,J,K) entered for the member are used to define a plane.  This plane is the plane of the member's x and y-axes.  The local z-axis is defined based on the right hand rule using the x and y-axes. See the image below.</li>
+    <li><b>rotx</b>: positive value is counter-clockwise about the x-axis, with the x-axis pointing towards you.</li>
+    Selecting NodeK, rotx will be set to empty. Entering rotx will remove the selection of NodeK. 
+
+  </ul> 
+
+</div>
+
+<div id="connections">
+  To define connections for present geometry data record.
+</div>
+
+<div id="geo_doc">
+  To define document for present geometry data record.
+</div>
+
+<div id="pro_associations">
+</div>
+
+<div id="analysis">
+  To define configurations of loads and design for the analysis to be done for present geometry data record.
+  <ul>
+    <li><b>LC Name</b>: Load Configuration (LC) Name.</li>
+    <li><b>3D</b>: Check/uncheck to include/exclude the loads defined in LC in the the 3D illustration.</li>
+    <li><b>DC Name</b>: Design Configuration (DC) Name.</li>
+    <li><b>Analysis</b>: Click to perform analysis based on defined geometry, LC and DC.</li>
+    <li><b>Results</b>: Output files ready for viewing and/or downloading.</li> 
+    <li><b>Report</b>: Analsyis report.</li>         
+  </ul>     
+</div>
+
+<div id="geo_association">
+  To define geo associations for present geometry data record.
+</div>
+
+<div id="wind_areas">
+</div>
+
+<div id="loading">
+</div>
+
+<div id="pro_docs">
+</div>
+
+<div id="analysis_eq">
+  To select from app database and add to a group of products/equipments to be used on present geometry.
+</div>
+
+<div id="analysis_lc">
+  Loading Configuraiton (LC) details. 
+  <ul>
+    <li><b>Member</b>: select a structural member for attaching equipment(s).</li>
+    <li><b>Attachments</b>: select equipment to attach and specify attaching parameters.</li>   
+    <li><b>RAD</b>: calculated equipment RAD center elevation.</li>
+    <li><b>Azimuth</b>: calculated equipment azimuth, equal to global ROTY = roty of attaching. Global Y = clockwise rotation of X w.r.t vertical Y from north.</li>    
+    <li><b>Status</b>: the status of the equipment.</li>
+
+  <ul>
+    <li><b>EXTN</b>: existing.</li>
+    <li><b>PROP</b>: proposed.</li>
+    <li><b>RLCTD</b>: relocated.</li>
+    <li><b>RSVD</b>: reserved.</li>
+    <li><b>FUTR</b>: futrue.</li>
+    <li><b>tbRLCTD</b>: to be relocated.</li>
+    <li><b>tbRMVD</b>: to be removed.</li> 
+    <li><b>N/A</b>: not available or not set.</li>                  
+  </ul>
+
+    <li><b>Owner</b>: owner/carrier.</li>
+    <li><b>Sym. / Tech.</b>: system and/or technology of the equipment.</li>       
+  </ul> 
+</div>
+
+<div id="analysis_dc">
+  Design Configuraiton (DC) details. 
+  <ul>
+    <li><b>Global Offsets</b>: offsets from the origin of the global coordiante system.</li>
+    <li><b>Global Rotations</b>: rotation w.r.t to the axles of the global coordiante system. Gloabl X/Y/Z are pointing to East, Sky, and North, respectively. ROTY is the clockwise rotation of Z axis w.r.t Y. - AGAINST right-hand rule. </li>   
+    <li><b>Code</b>: design code to be used for code checking.</li>
+    <li><b>Wind Pressure</b>: value to be entered for wind load calculation.</li>    
+    <li><b>Wind Directions</b>: wind directions to be considered for analysis. Pay attention to the input format.</li>
+    <li><b>Notes</b>: any additional notes.</li>        
+  </ul>   
+</div>
+
+<div id="analysis_attachments">
+Offsets from the origin and rotation w.r.t. the axles of member's local coordinate system (lcs).
+</div>
+
+<div id="analysis_rpt">
+</div>
+
+
+<div id="design_reactions">
+  <p><b>To enter design reaction values and </b></p>
+</div>
+
+<div id="references">
+  <h5>References</h5>
+  <i><ul class="knowledge_compact">      
+    <li><a href="https://www.3starinc.com/manuals/design_considerations_using_TIA_222_G_standard.pdf" target="_blank">Design Considerations Using The ANSI/TIA-222-Rev G Standard, ROHN Products, LLC.</a></li>
+  </ul></i>
+</div>
+
+<div class="shared">
+  <div class="shared-container">
+        <!-- h5>References</h5>
+        <i><ul class="knowledge_compact">
+            <li><a href="https://www.3starinc.com/manuals/design_considerations_using_TIA_222_G_standard.pdf" target="_blank">Design Considerations Using The ANSI/TIA-222-Rev G Standard, ROHN Products, LLC.</a></li>
+            <li>AGL Report: Revision G Updates Tower Requirements, Above Ground Level, April 2010.</li>
+            <li><a href="https://www.worldtower.com/images/222-g%20catalog/222%20g%20reference%20catelog.pdf" target="_blank">TIA-222-G Reference Catalog, World Tower Company, Inc.</a></li>
+            <li><a href="https://www.towernx.com/downloads/TIA-222-G_Explained.pdf" target="_blank">ANSI/TIA-222-G Explained, John R. Erichsen, Tower Numerics Inc.</a></li>
+          </ul></i -->
+        </div>
+      </div>
+
+      <div class="shared">
+        <h5>Media Content</h5>
+      </div>

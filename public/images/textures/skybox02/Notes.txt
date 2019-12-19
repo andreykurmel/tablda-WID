@@ -1,0 +1,6 @@
+sky_posX.jpg - front / sky_negX.jpg - back
+sky_posZ.jpg - right / sky_negZ.jpg - left
+
+sky_posY.jpg - top / sky_negY.jpg - bottom
+
+X->Z rotate 90

@@ -1,0 +1,208 @@
+{
+    "faces": [
+        {
+            "name": "front",
+            "n_dir_vec": [
+                1,
+                0,
+                0
+            ],
+            "azimuth": {
+                "value": 0.087266462599716,
+                "unit": "rad"
+            },
+            "shape": "rectangular",
+            "type": "flat",
+            "wth": {
+                "value": 3.0166816724466,
+                "unit": "in."
+            },
+            "lth": {
+                "value": 3.0166816724466,
+                "unit": "in."
+            },
+            "position": {
+                "value": [
+                    0,
+                    0,
+                    0
+                ],
+                "unit": "in."
+            },
+            "P_A_A_A": {
+                "value": 9.1003683128754,
+                "unit": "in.^2"
+            },
+            "ar": 1,
+            "C_a": 1.2,
+            "angle_btw_wind_area": {
+                "value": 3.1415926535898,
+                "unit": "rad"
+            },
+            "exposure": 0,
+            "EPA_A": {
+                "value": 0,
+                "unit": "in.^2"
+            },
+            "dwf": {
+                "value": 0,
+                "unit": "lbf"
+            }
+        },
+        {
+            "name": "right",
+            "n_dir_vec": [
+                0,
+                0,
+                1
+            ],
+            "azimuth": {
+                "value": 90.0872664626,
+                "unit": "rad"
+            },
+            "shape": "rectangular",
+            "type": "flat",
+            "wth": {
+                "value": 3.0166816724466,
+                "unit": "in."
+            },
+            "lth": {
+                "value": 3.0166816724466,
+                "unit": "in."
+            },
+            "position": {
+                "value": [
+                    0,
+                    0,
+                    0
+                ],
+                "unit": "in."
+            },
+            "P_A_A_A": {
+                "value": 9.1003683128754,
+                "unit": "in.^2"
+            },
+            "ar": 1,
+            "C_a": 1.2,
+            "angle_btw_wind_area": {
+                "value": 1.5707963267949,
+                "unit": "rad"
+            },
+            "exposure": 0,
+            "EPA_A": {
+                "value": 0,
+                "unit": "in.^2"
+            },
+            "dwf": {
+                "value": 0,
+                "unit": "lbf"
+            }
+        },
+        {
+            "name": "back",
+            "n_dir_vec": [
+                -1,
+                0,
+                0
+            ],
+            "azimuth": {
+                "value": 180.0872664626,
+                "unit": "rad"
+            },
+            "shape": "rectangular",
+            "type": "flat",
+            "wth": {
+                "value": 3.0166816724466,
+                "unit": "in."
+            },
+            "lth": {
+                "value": 3.0166816724466,
+                "unit": "in."
+            },
+            "position": {
+                "value": [
+                    0,
+                    0,
+                    0
+                ],
+                "unit": "in."
+            },
+            "P_A_A_A": {
+                "value": 9.1003683128754,
+                "unit": "in.^2"
+            },
+            "ar": 1,
+            "C_a": 1.2,
+            "angle_btw_wind_area": {
+                "value": 0,
+                "unit": "rad"
+            },
+            "exposure": 1,
+            "EPA_A": {
+                "value": 21.840883950901,
+                "unit": "in.^2"
+            },
+            "dwf": {
+                "value": 5.5587532934779,
+                "unit": "lbf"
+            }
+        },
+        {
+            "name": "left",
+            "n_dir_vec": [
+                0,
+                0,
+                -1
+            ],
+            "azimuth": {
+                "value": 270.0872664626,
+                "unit": "rad"
+            },
+            "shape": "rectangular",
+            "type": "flat",
+            "wth": {
+                "value": 3.0166816724466,
+                "unit": "in."
+            },
+            "lth": {
+                "value": 3.0166816724466,
+                "unit": "in."
+            },
+            "position": {
+                "value": [
+                    0,
+                    0,
+                    0
+                ],
+                "unit": "in."
+            },
+            "P_A_A_A": {
+                "value": 9.1003683128754,
+                "unit": "in.^2"
+            },
+            "ar": 1,
+            "C_a": 1.2,
+            "angle_btw_wind_area": {
+                "value": 1.5707963267949,
+                "unit": "rad"
+            },
+            "exposure": 0,
+            "EPA_A": {
+                "value": 0,
+                "unit": "in.^2"
+            },
+            "dwf": {
+                "value": 0,
+                "unit": "lbf"
+            }
+        }
+    ],
+    "frt_azm": 5,
+    "ctr_elev": 2,
+    "ice_thk": 0.50834083622332,
+    "q_z": 38.578565537928,
+    "g_h": "0.95",
+    "k_a": "2",
+    "epa_a": 21.840883950901,
+    "dwf": 0.0055587532934779
+}

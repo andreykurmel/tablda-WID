@@ -1,0 +1,67 @@
+       function InitObj_2(){
+          var sd3 = ext_scope[3]/2;
+          var sd2 = ext_scope[2]/2;
+          //var Rad = Math.sqrt(sd1 * sd1 + ext_scope[3] * ext_scope[3]);
+          //the angle of the chord
+          /*var Angle = 2 * Math.asin(ext_scope[2]/(2 * Rad));
+          var curve = new THREE.EllipseCurve(
+	          0,  ext_scope[3]/2,            // ax, aY
+	         Rad, Rad,           // xRadius, yRadius
+	         0,  Angle,  // aStartAngle, aEndAngle
+	         false,            // aClockwise
+	         -Angle/2-Math.radians(90)                 // aRotation
+          );
+
+          var path = new THREE.Path( curve.getPoints( 50 ) );
+          lineGeometry = path.createPointsGeometry( 50 );*/
+
+          lineGeometry = new THREE.Geometry();
+	      vertArray = lineGeometry.vertices;
+          var irv = (ext_scope[2] - 0.001) / 50;
+          var MaxY = sd2;
+          var Rat = ext_scope[4] / MaxY;
+          vertArray.push( new THREE.Vector3(-sd2, 0 , 0));
+          vertArray.push( new THREE.Vector3(-sd2, ext_scope[3] , 0));
+          for(x=-sd2; x<=sd2; x+=irv){
+              var y = Math.sqrt(sd2 * sd2 - x * x);
+              vertArray.push( new THREE.Vector3(x, y * Rat + sd3*2 , 0));
+console.log("y: " + y*Rat);
+          }
+          vertArray.push( new THREE.Vector3(sd2, 0 , 0));
+          vertArray.push( new THREE.Vector3(-sd2, 0 , 0));
+//          for(i=0; i<vertArray.length; i++){
+
+          var lineMaterial = new THREE.LineBasicMaterial( { color : mdl_color } );
+ //lineGeometry.vertices.push(-lineGeometry.vertices[0].x, lineGeometry.vertices[0].y, 0);
+          //lineGeometry.vertices.push(lineGeometry.vertices[0]);
+          // Create the final object to add to the scene
+          line = new THREE.Line( lineGeometry, lineMaterial );
+          line.position.x = -5;
+	      scene.add(line);
+       }
+
+
+       function MakeObj_2(bInit){
+          var material = new THREE.MeshPhongMaterial( { color: mdl_color } );
+          var shape = new THREE.Shape(vertArray);
+
+          var extrudeSettings = {
+  	         steps: 1,
+	         amount: ext_scope[1],
+	         bevelEnabled: false,
+	         bevelThickness: 0,
+	         bevelSize: 0,
+	         bevelSegments: 0
+          };
+          var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
+          for(i=0; i<geometry.vertices.length; i++){
+              geometry.vertices[i].z -= ext_scope[1]/2;
+          }
+          if(bInit == true){
+             obj = new THREE.Mesh( geometry, material );
+             obj.position.x = 2;
+             scene.add(obj);
+          }else{
+             obj.geometry = geometry;
+          }
+       }

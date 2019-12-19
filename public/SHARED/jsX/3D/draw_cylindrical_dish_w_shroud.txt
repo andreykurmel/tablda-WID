@@ -1,0 +1,24 @@
+       function InitObj_6(){          
+	      lineGeometry = new THREE.Geometry();
+	      vertArray = lineGeometry.vertices;
+	      vertArray.push( new THREE.Vector3(-0.01, -ext_scope[4], 0), new THREE.Vector3(-ext_scope[3]/2, 0, 0), new THREE.Vector3(-ext_scope[3]/2, ext_scope[2], 0), new THREE.Vector3(-0.01, ext_scope[2], 0) );
+	      //lineGeometry.computeLineDistances();
+	      var lineMaterial = new THREE.LineBasicMaterial( { color: mdl_color } );
+	      line = new THREE.Line( lineGeometry, lineMaterial );
+          line.position.x = -2;
+	      scene.add(line);
+       }
+
+
+       function MakeObj_6(bInit){
+          var geometry = new THREE.LatheGeometry( vertArray, 48);
+          //var material = new THREE.MeshStandardMaterial( { color: 0x666600, side: THREE.DoubleSide } );
+          var material = new THREE.MeshPhongMaterial( { color: mdl_color } );
+          if(bInit == true){
+             obj = new THREE.Mesh( geometry, material );
+             obj.position.x = 2;
+             scene.add(obj);
+          }else{
+             obj.geometry = geometry;
+          }
+       }

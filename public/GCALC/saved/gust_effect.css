@@ -1,0 +1,137 @@
+body{
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+}
+            .symbol {
+                float: left;
+                width: 50px;
+                text-align: right;
+                padding: 0px 5px 0px 5px;
+                height: auto;
+                border-radius: 5px;
+                border: 1px solid #8AC007;
+            }
+
+            .value {
+                float: left;
+                width: 100px;
+                text-align: left;
+                padding: 0px 5px 0px 5px;
+                height: auto;
+                min-height: 20px;
+                border-radius: 5px;
+                border: 1px solid #8AC007;
+            }
+
+
+            .description {
+                float: left;
+                width: calc(100% - 190px);
+                text-align: left;
+                padding: 0px 5px 0px 5px;
+                height: auto;
+                border-radius: 5px;
+                border: 1px solid #8AC007;
+            }
+
+
+            .value4 {
+                float: left;
+                width: 90px;
+                text-align: left;
+                padding: 0px 5px 0px 5px;
+                height: 20px;
+                border-radius: 5px;
+                border: 1px solid #8AC007;
+            }            
+
+            .description4 {
+                float: left;
+                width: 90px;
+                text-align: left;
+                padding: 0px 5px 0px 5px;
+                height: 20px;
+                border-radius: 5px;
+                border: 1px solid #8AC007;
+            }
+
+            .row {
+                padding: 0 5px 0 5px;
+                clear: both;
+            }
+
+            .row2 {
+                padding: 0 0 0 0;
+                clear: both;
+            }
+            .selection {
+                width: 95%;
+            }
+            /*buttons*/
+            .btn-danger:hover {
+                color: #fff;
+                background-color: #c9302c;
+                border-color: #ac2925;
+            }
+
+            .btn-danger {
+                color: #fff;
+                background-color: #d9534f;
+                border-color: #d43f3a;
+            }
+
+            .btn-success:hover {
+                color: #fff;
+                background-color: #449d44;
+                border-color: #398439;
+            }
+            .btn.focus, .btn:focus, .btn:hover {
+                color: #333;
+                text-decoration: none;
+            }
+            .btn-success {
+                color: #fff;
+                background-color: #5cb85c;
+                border-color: #4cae4c;
+            }
+            .btn {
+                display: inline-block;
+                padding: 6px 12px;
+                margin-bottom: 0;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.42857143;
+                text-align: center;
+                white-space: nowrap;
+                vertical-align: middle;
+                -ms-touch-action: manipulation;
+                touch-action: manipulation;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                background-image: none;
+                border: 1px solid transparent;
+                border-radius: 4px;
+            }
+
+            button, html input[type=button], input[type=reset], input[type=submit] {
+                -webkit-appearance: button;
+                cursor: pointer;
+            }
+            button, html input[type=submit] {
+                text-transform: none;
+                overflow: visible;
+                margin: 0;
+                font: inherit;
+                color: inherit;
+                font-family: inherit;
+                font-size: inherit;
+                line-height: inherit;
+            }
+            @media only screen and (max-width: 800px) {
+                .symbol,.value,.description{
+                    font-size: 12px;
+                }
+            }
+.isPdf{display: none}
