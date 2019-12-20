@@ -76,7 +76,7 @@ $groupswithaccess = "PUBLIC";
         <script src="project/controllers.js"></script>
         <script src="project/plugins.js"></script>
         <script src="auth/auth.js"></script>
-        <script src="app/iframe_pusher.js"></script>
+<!--        <script src="app/iframe_pusher.js"></script>-->
 
         <script src="SHARED/headers_footers/header.js"></script>
         <script src="SHARED/headers_footers/footer.js"></script>

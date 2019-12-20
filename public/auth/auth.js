@@ -67,7 +67,7 @@ app.factory("Auth", function ($http, handler, config) {
         companiesPrivateAccess: [],
 
         loginService: function (form) {
-            return $http.get("/ajax/cur-user").then(
+            return $http.get("request.php?method=curUser").then(
                 handler.success,
                 handler.error
             );

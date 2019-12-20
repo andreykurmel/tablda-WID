@@ -20,6 +20,8 @@ $r3d_write = new r3d_write();
 
 if (!empty($request->method)) {
     switch ($request->method) {
+        case "curUser":
+            die (json_encode($generic->curUser()));
         case "get":
             $type = !empty($request->type) ? $request->type : 'all';
             $userID = !empty($request->userID) ? $request->userID : null;

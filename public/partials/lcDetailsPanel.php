@@ -385,7 +385,7 @@
                             <option ng-repeat="headOption in head.headerCombs" value="{{headOption.id}}">{{headOption.name}}</option>
                         </select>
                     </div>
-                    <div class="inner-header row" ng-include="'./../../SHARED/headers_footers/usersCalcHead.php'"></div>
+                    <div class="inner-header row" ng-include="'SHARED/headers_footers/usersCalcHead.php'"></div>
                 </div>
                 <div class="report-footer col-md-12">
                     <div style="margin-left: -15px;">
@@ -395,7 +395,7 @@
                             <option ng-repeat="footOption in foot.footerCombs" value="{{footOption.id}}">{{footOption.name}}</option>
                         </select>
                     </div>
-                    <div class="inner-footer row" ng-include="'./../../SHARED/headers_footers/usersCalcFooter.php'"></div>
+                    <div class="inner-footer row" ng-include="'SHARED/headers_footers/usersCalcFooter.php'"></div>
                 </div>
                 <div style="margin-top: 5px; margin-left: -15px;" class="col-md-12">
                     <div class="col-md-6" style="padding: 10px;">

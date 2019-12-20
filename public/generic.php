@@ -107,6 +107,19 @@ class Generic {
         return $ddls;
     }
 
+    /**
+     * @return mixed
+     */
+    function curUser() {
+        $user = auth()->user();
+        return $user->only(['id','username','first_name','last_name']);
+    }
+
+    /**
+     * @param string $type
+     * @param $userID
+     * @return array
+     */
     function get($type = 'all', $userID) {
         $userID = json_decode(json_encode($userID));
 
@@ -116,63 +129,26 @@ class Generic {
         $size = $this->config['data'][$type]['size'];
         $users = '';
         $links = array();
-
-        /*if(!empty($userID->userIds)) {
-            $users = ''.implode(',',$userID->userIds);
-        }
-
-        if($userID->shared == 'true'){
-            if($userID->private == 'true') {
-                $whereU = 'userID IN('.$users.','.$userID->privateId.')';
-            } else {
-                $whereU = 'userID IN('.$users.')';
-            }
-        } else if($userID->private == 'true') {
-            $whereU = 'userID = '.$userID->privateId;
-        } else {
-            $whereU = 'userID IN()';
-        }
-
-        //LINKS
-
-        $query_links = "SELECT id, mode, linkID FROM {$table} WHERE mode = 'link' AND linkID IS NOT NULL AND userID = {$userID->privateId}";
-
-        if ($result = $this->db->query($query_links)) {
-            while ($row = $result->fetch_row()) {
-                $links[] = $row[2];
-            }
-
-            $result->close();
-        }
-
-
-        $linkids = '';
-
-        if(!empty($links)) {
-            $linkids = ''.implode(',',$links);
-        } else {
-            $linkids = '-1';
-        }
-
-        $whereNew = 'AND ( '.$whereU.' OR id IN('.$linkids.') )';*/
         $whereNew = '';
 
-        //
-
-
+        $si = 0;
         foreach ($columns as $column => $value) {
 
             $query = "SELECT id, {$column} FROM {$table} WHERE {$column} IS NOT NULL {$whereNew} GROUP BY {$column}";
 
-            $receiver = DataReceiver::get('Products');
+            $receiver = DataReceiver::get($table);
             $rows = [];
             try {
-                $rows = $receiver->groupBy($column)->select($column)->get();
+                $rows = $receiver->where($column, '!=', null)
+                    ->groupBy($column)
+                    ->select($column)
+                    ->limit($size[$si])
+                    ->get();
             } catch (\Exception $e) {}
 
-            $data = [];
+            $result = [];
             foreach ($rows as $idx => $row) {
-                $data[] = [
+                $result[] = [
                     'id' => $idx,
                     'value' => $row[$column],
                 ];
@@ -182,8 +158,10 @@ class Generic {
                 'key' => $column,
                 'name' => $value,
                 'sql' => $query,
-                'data' => $data
+                'data' => $result
                 );
+
+            $si++;
         }
 
         foreach ($ddls as $i => &$ddl) {
@@ -194,20 +172,15 @@ class Generic {
 
     }
 
+    /**
+     * @param string $type
+     * @param $data
+     * @param $userID
+     * @return array
+     */
     function sort($type = 'all', $data, $userID) {
         $userID = json_decode(json_encode($userID));
         $data = json_decode(json_encode($data));
-        $users = '';
-
-        $sites = false;
-
-        if(!empty($userID->userIds)) {
-            $users = ''.implode(',',$userID->userIds);
-        }
-        if($type === 'site') {
-            $type = 'geometry';
-            $sites = true;
-        }
 
 
         if(empty($data)) $data = array();
@@ -217,56 +190,7 @@ class Generic {
         $table = $this->config['data'][$type]['table'];
         $columns = $this->config['data'][$type]['columns'];
         $size = $this->config['data'][$type]['size'];
-
-        if($userID->shared == 'true'){
-            if($userID->private == 'true') {
-                $whereU = 'userID IN('.$users.','.$userID->privateId.')';
-            } else {
-                $whereU = 'userID IN('.$users.')';
-            }
-        } else if($userID->private == 'true') {
-            $whereU = 'userID = '.$userID->privateId;
-        } else {
-            $whereU = 'userID IN()';
-        }
-
-        //LINKS
-
-        $links = array();
-
-        if(!$sites) {
-            $query_links = "SELECT id, mode, linkID FROM {$table} WHERE mode = 'link' AND linkID IS NOT NULL AND userID = {$userID->privateId}";
-
-            if ($result = $this->db->query($query_links)) {
-                while ($row = $result->fetch_row()) {
-                    $links[] = $row[2];
-                }
-
-                $result->close();
-            }
-        }
-
-
-
-        $linkids = '';
-
-        if(!empty($links)) {
-            $linkids = ''.implode(',',$links);
-        } else {
-            $linkids = '-1';
-        }
-
-        $whereNew = 'AND ( '.$whereU.' OR id IN('.$linkids.') )';
-
-        //
-
-        if($sites) {
-
-            $query_sites = "SELECT geo_id FROM db_sites WHERE ".$whereU;
-
-
-            $whereNew = $whereNew." AND id IN (".$query_sites.")";
-        }
+        $whereNew = '';
 
 
         foreach ($data as $item) {
@@ -274,69 +198,64 @@ class Generic {
             $selected[] = $item->key;
         }
 
-        foreach ($columns as $column => $value) {
-            $where = '';
+        $si = 0;
+        foreach ($columns as $column => $value)
+        {
+            $receiver = DataReceiver::get($table);
+
             $array = array();
             $num = array_search($column, $selected);
 
             if ($num !== false) {
                 if ($num != 0) {
-                    $where = ' AND ';
                     if ($last[$num] != "true") {
                         for ($i = 0; $i <= $num - 1 ; $i++) {
-                            $where .= $data[$i]->key.' = "'.$data[$i]->value.'" ';
-                            if ($i != $num-1) {
-                                $where .= ' AND ';
-                            }
+                            $receiver->where($data[$i]->key, '=', $data[$i]->value);
                         }
                     } else {
                         for ($i = 0; $i < $num; $i++) {
-                            $where .= $data[$i]->key.' = "'.$data[$i]->value.'" ';
-                            if ($i != ($num - 1)) {
-                                $where .= ' AND ';
-                            }
+                            $receiver->where($data[$i]->key, '=', $data[$i]->value);
                         }
                     }
                 }
             } else {
                 $count = count($data);
                 if($count){
-                    $where = ' AND ';
-
                     for ($i = 0; $i < $count; $i++) {
-                        $where .= ' '.$data[$i]->key.' = "'.$data[$i]->value.'" ';
-                        if ($i != ($count - 1)) {
-                            $where .= ' AND ';
-                        }
+                        $receiver->where($data[$i]->key, '=', $data[$i]->value);
                     }
                 }
             }
-            
-            $query = "SELECT id, {$column} FROM {$table} WHERE {$column} IS NOT NULL {$where} {$whereNew} GROUP BY {$column}";
 
-            if ($result = $this->db->query($query)) {
-                while ($row = $result->fetch_row()) {
-                    $array[] = array(
-                        'id' => $row[0],
-                        'value' => $row[1],
-                        'query' => $query
-                        );
-                }
+            $query = "SELECT id, {$column} FROM {$table} WHERE {$column} IS NOT NULL {$whereNew} GROUP BY {$column}";
 
-//                $array[] = array(
-//                    'id' => 'new',
-//                    'value' => 'New'
-//                );
+            $rows = [];
+            try {
+                $rows = $receiver->where($column, '!=', null)
+                    ->groupBy($column)
+                    ->select($column)
+                    ->limit($size[$si])
+                    ->get();
+            } catch (\Exception $e) {}
+
+            $result = [];
+            foreach ($rows as $idx => $row) {
+                $result[] = [
+                    'id' => $idx,
+                    'value' => $row[$column],
+                ];
             }
 
             $ddls[] = array(
                 'key' => $column,
                 'name' => $value,
-                'data' => $array,
+                'data' => $result,
                 'query' => $query,
                 'num' => $num,
                 '$last[$num]' => $last[$num]
                 );
+
+            $si++;
         }
 
         foreach ($ddls as $i => &$ddl) {

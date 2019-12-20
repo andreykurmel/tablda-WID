@@ -20,7 +20,7 @@ $config['data'] = array(
         )
     ),
     'geometry' => array(
-        'table' => 'db_geometry',
+        'table' => 'Geometry',
         'columns' => array(
             'Type_G' => "Type",
             'Sub_type_G' => "Sub Type",
