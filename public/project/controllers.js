@@ -2826,7 +2826,7 @@ app.controller("Models", function ($scope, $window, request, $compile, $timeout,
                     $scope.models.nodes.add.db_geo_PK = details.data[0].id;
                     $scope.models.secs.add.db_geo_PK = details.data[0].id;
                     $scope.models.geometry.newMaterial.db_geo_PK = details.data[0].id;
-                    $scope.models.geometry.newMaterial.org = $scope.models.geometry.materialsLists.orgList[0].value || '';
+                    //$scope.models.geometry.newMaterial.org = $scope.models.geometry.materialsLists.orgList[0].value || '';
                     $scope.models.geometry.db_geo_PK = details.data[0].id;
                     $scope.models.geometry.details = details.data || [];
                     $scope.models.geometry.members = details.members;
@@ -8503,7 +8503,7 @@ app.controller("Models", function ($scope, $window, request, $compile, $timeout,
     };
 
     // TODO: Bootstrap
-    // $scope.query.load();
+    $scope.query.load();
 
     // TODO: Webgl
     $scope.render = {};

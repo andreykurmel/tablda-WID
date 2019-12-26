@@ -54,6 +54,10 @@
                     </table>
                 </div>
 
+                <div id="analysis" class="tab-pane">
+                    Under construction...
+                </div>
+
                 <div id="site" class="tab-pane">
                     <table class="table table-bordered" style="margin: 0;">
                         <tr>
@@ -78,13 +82,16 @@
         <div class="col-sm-1" style="padding-left: 5px;">
             <ul class="nav nav-tabs tabs-right" style="padding-top: 0;" id="panelTabs">
                 <li id="product-tab">
-                    <a href="javascript:void(0)" style="overflow: hidden; padding: 4px; font-size: 12px;" data-target="#product" data-toggle="tab" ng-class="{'selected_tab': models.tabs == 'all' }" ng-click="models.changeTabs('all')">Product</a>
+                    <a href="javascript:void(0)" style="overflow: hidden; padding: 0 4px; font-size: 12px;" data-target="#product" data-toggle="tab" ng-class="{'selected_tab': models.tabs == 'all' }" ng-click="models.changeTabs('all')">Equipment</a>
                 </li>
                 <li id="geometry-tab" class="active">
-                    <a href="javascript:void(0)" style="overflow: hidden; padding: 4px; font-size: 12px;" data-target="#geometry" data-toggle="tab" ng-class="{'selected_tab': models.tabs == 'geometry' }"  ng-click="models.changeTabs('geometry')">Geometry</a>
+                    <a href="javascript:void(0)" style="overflow: hidden; padding: 0 4px; font-size: 12px;" data-target="#geometry" data-toggle="tab" ng-class="{'selected_tab': models.tabs == 'geometry' }"  ng-click="models.changeTabs('geometry')">Geometry</a>
+                </li>
+                <li id="analysis-tab">
+                    <a href="javascript:void(0)" style="overflow: hidden; padding: 0 4px; font-size: 12px;" data-target="#analysis" data-toggle="tab" ng-class="{'selected_tab': models.tabs == 'analysis' }"  ng-click="models.changeTabs('analysis')">Analysis</a>
                 </li>
                 <li id="site-tab">
-                    <a href="javascript:void(0)" style="overflow: hidden; padding: 4px; font-size: 12px;" data-target="#site" data-toggle="tab" ng-class="{'selected_tab': models.tabs == 'site' }"  ng-click="models.changeTabs('site')">Site</a>
+                    <a href="javascript:void(0)" style="overflow: hidden; padding: 0 4px; font-size: 12px;" data-target="#site" data-toggle="tab" ng-class="{'selected_tab': models.tabs == 'site' }"  ng-click="models.changeTabs('site')">Site</a>
                 </li>
             </ul>
         </div>

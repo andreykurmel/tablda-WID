@@ -62,4 +62,25 @@ class User extends Authenticatable
     {
         return $this->role_id == 1;
     }
+
+
+
+    public function getUserGroupsMember()
+    {
+        if (!$this->user_groups_member) {
+            $this->user_groups_member = $this->_member_of_groups()
+                ->get()
+                ->pluck('id')
+                ->toArray();
+        }
+        return $this->user_groups_member;
+    }
+
+
+
+    public function _member_of_groups() {
+        return $this->belongsToMany(UserGroup::class, 'user_groups_2_users', 'user_id', 'user_group_id')
+            ->as('_link')
+            ->withPivot(['user_group_id', 'user_id', 'cached_from_conditions']);
+    }
 }

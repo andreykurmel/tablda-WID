@@ -1,6 +1,6 @@
 <?php
 $groupswithaccess = "PUBLIC";
-//require_once("./../../Sitelok/slpw/sitelokpw.php");
+require_once("./global_config.php");
 ?>
 
 <!DOCTYPE html>

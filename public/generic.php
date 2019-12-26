@@ -20,6 +20,32 @@ class Generic {
         $this->write = new r3d_write();
     }
 
+    /**
+     * @param \Tablda\DataReceiver\DataTableReceiver $receiver
+     * @param bool $private
+     * @param bool $group
+     */
+    private function apply_user_where(\Tablda\DataReceiver\DataTableReceiver $receiver, bool $private, bool $group)
+    {
+        /*$user = \App\User::where('id', $_COOKIE['stim_user_id'])->first();
+        if ($user) {
+            if ($private) {
+                $receiver->where('usergroup','=', $user->id);
+            }
+            if ($group) {
+                $group_ids = $user->getUserGroupsMember();
+                foreach ($group_ids as &$gr) {
+                    $gr = '_'.$gr;
+                }
+                dd($group_ids);
+                $receiver->whereIn('usergroup', $group_ids);
+            }
+        } else {
+            $receiver->where('_id','=',null);
+        }*/
+    }
+    //-------------
+
     function database() {
         $conn = new mysqli(
             $this->config['database']['wid']['host'],
@@ -122,9 +148,14 @@ class Generic {
      */
     function get($type = 'all', $userID) {
         $userID = json_decode(json_encode($userID));
+        $private = $userID->private == 'true';
+        $group = $userID->shared == 'true';
 
         $ddls = array();
+
         $table = $this->config['data'][$type]['table'];
+        $receiver = DataReceiver::get($table);
+
         $columns = $this->config['data'][$type]['columns'];
         $size = $this->config['data'][$type]['size'];
         $users = '';
@@ -136,7 +167,9 @@ class Generic {
 
             $query = "SELECT id, {$column} FROM {$table} WHERE {$column} IS NOT NULL {$whereNew} GROUP BY {$column}";
 
-            $receiver = DataReceiver::get($table);
+            $receiver->clearQuery();
+            $this->apply_user_where($receiver, $private, $group);
+
             $rows = [];
             try {
                 $rows = $receiver->where($column, '!=', null)
@@ -180,6 +213,9 @@ class Generic {
      */
     function sort($type = 'all', $data, $userID) {
         $userID = json_decode(json_encode($userID));
+        $private = $userID->private == 'true';
+        $group = $userID->shared == 'true';
+
         $data = json_decode(json_encode($data));
 
 
@@ -187,7 +223,10 @@ class Generic {
         $ddls = array();
         $last = array();
         $selected = array();
+
         $table = $this->config['data'][$type]['table'];
+        $receiver = DataReceiver::get($table);
+
         $columns = $this->config['data'][$type]['columns'];
         $size = $this->config['data'][$type]['size'];
         $whereNew = '';
@@ -201,7 +240,8 @@ class Generic {
         $si = 0;
         foreach ($columns as $column => $value)
         {
-            $receiver = DataReceiver::get($table);
+            $receiver->clearQuery();
+            $this->apply_user_where($receiver, $private, $group);
 
             $array = array();
             $num = array_search($column, $selected);
@@ -267,6 +307,9 @@ class Generic {
 
     function items($type, $data, $userInfo) {
         $userInfo = json_decode(json_encode($userInfo));
+        $private = $userInfo->private == 'true';
+        $group = $userInfo->shared == 'true';
+
         $data = json_decode(json_encode($data));
         $users = '';
 
@@ -274,127 +317,69 @@ class Generic {
             $type = 'geometry';
         }
 
-        if(!empty($userInfo->userIds)) {
-            $users = ''.implode(',',$userInfo->userIds);
-        }
-
         if(empty($data)) $data = array();
+
         $table = $this->config['data'][$type]['table'];
+
+        $receiver = DataReceiver::get($table);
+        $this->apply_user_where($receiver, $private, $group);
 
         $query = "SELECT * FROM {$table} WHERE ";
 
         foreach ($data as $column) {
-            $query .= $column->key.' = "'.$column->value.'" AND ';
+            $receiver->where($column->key, '=', $column->value);
         }
-
-        if($userInfo->shared == 'true'){
-            if($userInfo->private == 'true') {
-                $whereU = 'userID IN('.$users.','.$userInfo->privateId.')';
-            } else {
-                $whereU = 'userID IN('.$users.')';
-            }
-        } else if($userInfo->private == 'true') {
-            $whereU = 'userID = '.$userInfo->privateId;
-        } else {
-            $whereU = 'userID IN()';
-        }
-
-        //LINKS
-
-        $query_links = "SELECT id, mode, linkID FROM {$table} WHERE mode = 'link' AND linkID IS NOT NULL AND userID = {$userInfo->privateId}";
-
-        if ($result = $this->db->query($query_links)) {
-            while ($row = $result->fetch_row()) {
-                $links[] = $row[2];
-            }
-
-            $result->close();
-        }
-
-
-        $linkids = '';
-
-        if(!empty($links)) {
-            $linkids = ''.implode(',',$links);
-        } else {
-            $linkids = '-1';
-        }
-
-        $whereNew = '( '.$whereU.' OR id IN('.$linkids.') )';
-
-        //
-
-        $query = $query.$whereNew;
-
-        $debugquery = $query;
 
         $array = array();
 
-        if ($result = $this->db->query($query)) {
-            while ($row = $result->fetch_assoc()) {
-                $array['data'][] = $row;
-            }
+        $array['data'] = $receiver->get();
+        if (!empty($array['data'][0])) {
+            $array['data'][0]['id'] = $array['data'][0]['_id'];
         }
 
-        if (!empty($array['data'][0]) && $table == 'db_geometry') {
+        if (!empty($array['data'][0]) && $type == 'geometry') {
 
-            $query = "SELECT * FROM db_geo_node WHERE db_geo_PK = {$array['data'][0]['id']}";
+            try {
+                $receiver = DataReceiver::get('Nodes');
+                $receiver->where('model', '=', $array['data'][0]['Model_G']);
+                $array['nodes'] = $receiver->get();
+            } catch (\Exception $e) {}
 
-            if ($result = $this->db->query($query)) {
-                while ($row = $result->fetch_assoc()) {
-                    $array['nodes'][] = $row;
-                }
-            }
+            try {
+                $receiver = DataReceiver::get('Nodes_p');
+                $receiver->where('model','=', $array['data'][0]['Model_G']);
+                $array['nodes_p'] = $receiver->get();
+            } catch (\Exception $e) {}
 
-            $query = "SELECT * FROM db_geo_node_p WHERE db_geo_PK = {$array['data'][0]['id']}";
+            try {
+                $receiver = DataReceiver::get('Sections');
+                $receiver->where('model', '=', $array['data'][0]['Model_G']);
+                $array['secs'] = $receiver->get();
+            } catch (\Exception $e) {}
 
-            if ($result = $this->db->query($query)) {
-                while ($row = $result->fetch_assoc()) {
-                    $array['nodes_p'][] = $row;
-                }
-            }
+            try {
+                $receiver = DataReceiver::get('Materials');
+                $receiver->where('model', '=', $array['data'][0]['Model_G']);
+                $array['materials'] = $receiver->get();
+            } catch (\Exception $e) {}
 
-            $query = "SELECT * FROM db_geo_sec WHERE db_geo_PK = {$array['data'][0]['id']}";
+            try {
+                $receiver = DataReceiver::get('Members');
+                $receiver->where('model', '=', $array['data'][0]['Model_G']);
+                $array['members'] = $receiver->get();
+            } catch (\Exception $e) {}
 
-            if ($result = $this->db->query($query)) {
-                while ($row = $result->fetch_assoc()) {
-                    $array['secs'][] = $row;
-                }
-            }
+            try {
+                $receiver = DataReceiver::get('Connections');
+                $receiver->where('model', '=', $array['data'][0]['Model_G']);
+                $array['connections'] = $receiver->get();
+            } catch (\Exception $e) {}
 
-            $query = "SELECT * FROM db_geo_mat WHERE db_geo_PK = {$array['data'][0]['id']}";
-
-            if ($result = $this->db->query($query)) {
-                while ($row = $result->fetch_assoc()) {
-                    $array['materials'][] = $row;
-                }
-            }
-
-            $query = "SELECT * FROM db_geo_mbr WHERE db_geo_PK = {$array['data'][0]['id']}";
-
-            if ($result = $this->db->query($query)) {
-                while ($row = $result->fetch_assoc()) {
-                    $array['members'][] = $row;
-                }
-            }
-
-            $query = "SELECT * FROM db_geo_cntr WHERE db_geo_PK = {$array['data'][0]['id']}";
-
-            if ($result = $this->db->query($query)) {
-                while ($row = $result->fetch_assoc()) {
-                    $array['connectors'][] = $row;
-                }
-            }
-
-            $query = "SELECT * FROM db_geo_cntn WHERE db_geo_PK = {$array['data'][0]['id']}";
-
-            if ($result = $this->db->query($query)) {
-                while ($row = $result->fetch_assoc()) {
-                    $array['connections'][] = $row;
-                }
-
-                $result->close();
-            }
+            try {
+                $receiver = DataReceiver::get('Connectors');
+                $receiver->where('model', '=', $array['data'][0]['Model_G']);
+                $array['connectors'] = $receiver->get();
+            } catch (\Exception $e) {}
         }
 
         return $array;
@@ -924,19 +909,11 @@ class Generic {
     }
 
     function getProductAssociation($db_pro_PK) {
-        $data = array();
 
-        $query = "SELECT * FROM db_pro_asctn WHERE `db_pro_PK` = {$db_pro_PK}";
+        $receiver = DataReceiver::get('Equipment');
+        $receiver->where('_id','=',$db_pro_PK);
 
-        if ($result = $this->db->query($query)) {
-            while ($row = $result->fetch_assoc()) {
-                $data[] = $row;
-            }
-
-            $result->close();
-        }
-
-        return $data;
+        return $receiver->get();
     }
 
     function updateProductAssociation($data) {
@@ -2296,6 +2273,9 @@ class Generic {
     }
 
     function getSitesItemList($userID, $selected) {
+        // TODO: to fix
+        return json_decode('{"query":"SELECT * FROM db_sites WHERE userID IN()","data":[],"ddls":[{"data":[],"key":"fa","name":"FA"},{"data":[],"key":"elev","name":"Elev"},{"data":[],"key":"site_name","name":"Name"},{"data":[],"key":"sectors","name":"Sectors"},{"data":[],"key":"geo_id","name":"Geo Model"}]}');
+
         $data = array();
 
         $userID = json_decode(json_encode($userID));

@@ -3,7 +3,7 @@ require_once('./global_config.php');
 
 $config['data'] = array(
     'all' => array(
-        'table' => 'Products',
+        'table' => 'Equipment',
         'columns' => array(
             'type' => "Type",
             'sub_type' => "Sub Type",

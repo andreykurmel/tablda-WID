@@ -16,7 +16,9 @@ require_once __DIR__.'/DataReceiver.php';
 
 
 //added in Laravel
-$user = auth()->user();
+if (auth()->id()) {
+    setcookie('stim_user_id', auth()->id());
+}
 //
 
 $dbType = "local2DO";
