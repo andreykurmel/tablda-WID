@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Classes;
+
+
 class DataReceiver
 {
     protected static $tablda_data_interface;
@@ -11,12 +14,12 @@ class DataReceiver
     {
         $settings = ['TABLDA_APP_NAME' => env('TABLDA_APP_NAME', 'stim_3d')];
 
-        self::$tablda_data_interface = app(\Tablda\DataReceiver\TabldaDataInterface::class, ['settings' => $settings]);
+        self::$tablda_data_interface = new TabldaReceiver($settings);
     }
 
     /**
      * @param string $table_name
-     * @return \Tablda\DataReceiver\DataTableReceiver
+     * @return TableConverter
      */
     public static function get(string $table_name)
     {

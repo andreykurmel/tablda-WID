@@ -5,6 +5,8 @@
 global $config;
 include 'r3d_write_class.php';
 
+use \App\Classes\DataReceiver;
+
 class Generic {
     private $db;
 
@@ -21,28 +23,31 @@ class Generic {
     }
 
     /**
-     * @param \Tablda\DataReceiver\DataTableReceiver $receiver
+     * @param \App\Classes\TableConverter $receiver
      * @param bool $private
      * @param bool $group
      */
-    private function apply_user_where(\Tablda\DataReceiver\DataTableReceiver $receiver, bool $private, bool $group)
+    private function apply_user_where(\App\Classes\TableConverter $receiver, bool $private, bool $group)
     {
-        /*$user = \App\User::where('id', $_COOKIE['stim_user_id'])->first();
+        $user = \App\User::where('id', $_COOKIE['stim_user_id'])->first();
         if ($user) {
-            if ($private) {
-                $receiver->where('usergroup','=', $user->id);
-            }
-            if ($group) {
-                $group_ids = $user->getUserGroupsMember();
-                foreach ($group_ids as &$gr) {
-                    $gr = '_'.$gr;
+            $sql = $receiver->accessToQuery();
+            $sql->where(function ($q) use ($receiver, $user, $private, $group) {
+                $mapped_usergroup = $receiver->map_column('usergroup');
+                if ($private && $mapped_usergroup) {
+                    $q->orWhere($mapped_usergroup, '=', $user->id);
                 }
-                dd($group_ids);
-                $receiver->whereIn('usergroup', $group_ids);
-            }
+                if ($group && $mapped_usergroup) {
+                    $group_ids = $user->getUserGroupsMember();
+                    foreach ($group_ids as &$gr) {
+                        $gr = '_'.$gr;
+                    }
+                    $q->orWhereIn($mapped_usergroup, $group_ids);
+                }
+            });
         } else {
             $receiver->where('_id','=',null);
-        }*/
+        }
     }
     //-------------
 
@@ -137,7 +142,7 @@ class Generic {
      * @return mixed
      */
     function curUser() {
-        $user = auth()->user();
+        $user = \App\User::where('id', $_COOKIE['stim_user_id'])->first();
         return $user->only(['id','username','first_name','last_name']);
     }
 
@@ -225,7 +230,7 @@ class Generic {
         $selected = array();
 
         $table = $this->config['data'][$type]['table'];
-        $receiver = DataReceiver::get($table);
+        $receiver = DataReceive::get($table);
 
         $columns = $this->config['data'][$type]['columns'];
         $size = $this->config['data'][$type]['size'];
